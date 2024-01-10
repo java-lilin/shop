@@ -1,0 +1,111 @@
+2024-01-03 15:37:23.599 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 15:37:23.827 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 15:37:26.567 [restartedMain] WARN  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer Line:62  - Unable to start LiveReload server
+2024-01-03 15:37:26.851 [restartedMain] WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext Line:591 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8089 is already in use
+2024-01-03 15:37:26.887 [restartedMain] ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter Line:40  - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8089 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8089 or configure this application to listen on another port.
+
+2024-01-03 15:37:34.848 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 15:37:35.076 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 15:37:37.685 [restartedMain] WARN  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer Line:62  - Unable to start LiveReload server
+2024-01-03 15:37:37.960 [restartedMain] WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext Line:591 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8089 is already in use
+2024-01-03 15:37:37.997 [restartedMain] ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter Line:40  - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8089 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8089 or configure this application to listen on another port.
+
+2024-01-03 15:38:20.757 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 15:38:21.012 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 15:38:23.810 [restartedMain] WARN  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer Line:62  - Unable to start LiveReload server
+2024-01-03 15:42:37.038 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 15:42:37.298 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 15:42:39.900 [restartedMain] WARN  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer Line:62  - Unable to start LiveReload server
+2024-01-03 15:46:52.448 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 15:46:52.675 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 15:46:55.544 [restartedMain] WARN  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer Line:62  - Unable to start LiveReload server
+2024-01-03 19:51:06.347 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:51:06.623 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:57:49.755 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:57:49.808 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:57:52.995 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:57:53.046 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:58:44.682 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:58:44.738 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:58:47.535 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:58:47.582 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:59:15.668 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:59:15.719 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:59:18.458 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 19:59:18.502 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:13:35.192 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:13:35.240 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:13:38.759 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:13:38.804 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:16:04.513 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:16:04.567 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:16:07.505 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:16:07.552 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:17:01.034 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:17:01.090 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:17:03.852 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:17:03.898 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:19:57.056 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:19:57.113 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:19:59.888 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:19:59.937 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:20:22.901 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:20:22.964 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:20:25.794 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:20:25.901 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:21:24.323 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:21:24.376 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:21:27.254 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:21:27.300 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:21:58.404 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:21:58.471 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:22:01.207 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:22:01.252 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:22:16.092 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:22:16.145 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:22:18.836 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:22:18.882 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:22:48.986 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:22:49.040 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:22:51.721 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:22:51.783 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:26:00.922 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:26:00.973 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:26:03.931 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:26:03.979 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:31:26.818 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:31:26.874 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:31:29.780 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:31:29.836 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:32:05.085 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:32:05.138 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:32:07.885 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 20:32:07.932 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 21:02:50.361 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 21:02:50.414 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 21:02:53.236 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
+2024-01-03 21:02:53.283 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner Line:44  - No MyBatis mapper was found in '[com.buyer]' package. Please check your configuration.
