@@ -19,9 +19,9 @@ public enum ClientType {
     /**
      * 类型
      */
-    private String type;
+    private final String type;
     /**
      * 描述
      */
-    private String name;
+    private final String name;
 }

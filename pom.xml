@@ -47,7 +47,7 @@
         <bcprov.version>1.70</bcprov.version>
         <oracle.version>12.1.0.1-atlassian-hosted</oracle.version>
         <easyexcel.version>3.3.2</easyexcel.version>
-        <hutool.version>5.3.4</hutool.version>
+        <hutool.version>5.8.24</hutool.version>
         <knife4j.version>4.1.0</knife4j.version>
     </properties>
 
@@ -102,16 +102,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.amqp</groupId>
-            <artifactId>spring-rabbit-test</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -214,7 +204,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
-            <version>3.1.0</version>
+            <version>3.5.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
