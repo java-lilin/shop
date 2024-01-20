@@ -14,6 +14,10 @@ import java.util.Date;
 @Data
 public class TabUserVo {
     /**
+     * 用户id
+     */
+    private String id;
+    /**
      * 姓名
      */
     private String name;
@@ -61,4 +65,12 @@ public class TabUserVo {
      * 启用状态 0：启用，1停用
      */
     private Integer startStatus;
+    /**
+     * 审核状态 0:待审核，1:审核通过，2:拒绝审核
+     */
+    private Integer approve;
+    /**
+     * 审核不通过原因
+     */
+    private String reason;
 }

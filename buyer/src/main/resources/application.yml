@@ -1,8 +1,8 @@
-db: education
+db: shop
 server:
-  port: 5050
+  port: 8081
   servlet:
-    context-path: /shop
+    context-path: /shop/buyer
     session:
       cookie:
         name: ROBOT_MANAGE_SID
@@ -26,9 +26,9 @@ spring:
     include: druid,mybatisplus
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://117.78.10.247:42843/${db}?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&useSSL=false&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/${db}?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&useSSL=false&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
-    password: hzxy2022@!QAZXSW@
+    password: 123456
   rabbitmq:
     host: 117.78.10.200
     port: 42803

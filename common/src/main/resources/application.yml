@@ -45,9 +45,9 @@ spring:
   redis:
     #数据库索引
     database: 14
-    host: 123.55.197.53
-    port: 49173
-    password: 20220716spux@*TOx
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
     #连接超时时间
     timeout: 5000
 logging:
@@ -57,11 +57,3 @@ logging:
     com.hzxy.common.mapper: debug
   pattern:
     dateformat: yyyy-MM-dd HH:mm:ss
-
-ScheduledCron:
-  #定时器开关 true-开 false-关
-  enabled: false
-
-holiday_group_mq:
-  #交换机名称
-  holiday_excange_name: holiday_excange

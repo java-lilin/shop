@@ -1,8 +1,8 @@
 package com.manager;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @version 1.0
@@ -11,8 +11,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @description:TODO
  * @date: 2024/1/11  17:08
  */
-@EnableSwagger2
-@SpringBootApplication
+@MapperScan(basePackages ={"com.manager.mapper"})
+@SpringBootApplication(scanBasePackages = {"com.manager","com.common"})
 public class ManagerApplication {
 
     public static void main(String[] args) {

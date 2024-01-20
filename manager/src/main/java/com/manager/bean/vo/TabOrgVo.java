@@ -19,12 +19,4 @@ public class TabOrgVo {
      * 父id
      */
     private String parentId;
-    /**
-     * 组织编码，四位一级
-     */
-    private Integer code;
-    /**
-     * 序号
-     */
-    private Integer sort;
 }

@@ -3,6 +3,8 @@ package com.common.util;
 
 import com.auth0.jwt.internal.org.apache.commons.lang3.StringUtils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +20,7 @@ public class IDCardUtil {
      * 18位身份证号
      */
     private static final Integer EIGHTEEN_ID_CARD=18;
-    private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 
 
@@ -72,7 +74,7 @@ public class IDCardUtil {
      * @param certNo 号码内容
      * @return 是否有效 null和"" 都是false
      */
-    public static boolean isIDCard(String certNo) {
+    public static boolean isIDCard(String certNo) throws ParseException {
         if (certNo == null || (certNo.length() != 15 && certNo.length() != 18)){
             return false;
         }
@@ -99,25 +101,25 @@ public class IDCardUtil {
 
         //校验年份
         String year = null;
-        year = certNo.length() == 15 ? getIdcardCalendar(certNo) : certNo.substring(6, 10);
+        year = certNo.length() == 15 ? getSdcardCalendar(certNo) : certNo.substring(6, 10);
 
 
-        final int iyear = Integer.parseInt(year);
-        if (iyear < 1900 || iyear > Calendar.getInstance().get(Calendar.YEAR)) {
+        final int yearFinal = Integer.parseInt(year);
+        if (yearFinal < 1900 || yearFinal > Calendar.getInstance().get(Calendar.YEAR)) {
             return false;//1900年的PASS，超过今年的PASS
         }
 
         //校验月份
         String month = certNo.length() == 15 ? certNo.substring(8, 10) : certNo.substring(10, 12);
-        final int imonth = Integer.parseInt(month);
-        if (imonth < 1 || imonth > 12) {
+        final int monthFinal = Integer.parseInt(month);
+        if (monthFinal < 1 || monthFinal > 12) {
             return false;
         }
 
         //校验天数
         String day = certNo.length() == 15 ? certNo.substring(10, 12) : certNo.substring(12, 14);
-        final int iday = Integer.parseInt(day);
-        if (iday < 1 || iday > 31) {
+        final int dayFinal = Integer.parseInt(day);
+        if (dayFinal < 1 || dayFinal > 31) {
             return false;
         }
 
@@ -130,39 +132,58 @@ public class IDCardUtil {
 
     /**
      * 根据身份证号获取性别
-     * @param IDCard
-     * @return
      */
-    public static String getSex(String IDCard){
-        String sex ="";
+    public static Integer getSex(String IDCard){
+        Integer sex = null;
         if (StringUtils.isNotBlank(IDCard)){
             //15位身份证号
             if (IDCard.length() == FIFTEEN_ID_CARD){
                 if (Integer.parseInt(IDCard.substring(14, 15)) % 2 == 0) {
-                    sex = "女";
+                    sex = 1;
                 } else {
-                    sex = "男";
+                    sex = 0;
                 }
                 //18位身份证号
             }else if(IDCard.length() == EIGHTEEN_ID_CARD){
                 // 判断性别
                 if (Integer.parseInt(IDCard.substring(16).substring(0, 1)) % 2 == 0) {
-                    sex = "女";
+                    sex = 1;
                 } else {
-                    sex = "男";
+                    sex = 0;
                 }
             }
         }
         return sex;
     }
 
+//    public static String getSex(String IDCard){
+//        String sex ="";
+//        if (StringUtils.isNotBlank(IDCard)){
+//            //15位身份证号
+//            if (IDCard.length() == FIFTEEN_ID_CARD){
+//                if (Integer.parseInt(IDCard.substring(14, 15)) % 2 == 0) {
+//                    sex = "女";
+//                } else {
+//                    sex = "男";
+//                }
+//                //18位身份证号
+//            }else if(IDCard.length() == EIGHTEEN_ID_CARD){
+//                // 判断性别
+//                if (Integer.parseInt(IDCard.substring(16).substring(0, 1)) % 2 == 0) {
+//                    sex = "女";
+//                } else {
+//                    sex = "男";
+//                }
+//            }
+//        }
+//        return sex;
+//    }
+
     /**
      * 根据身份证号获取年龄
-     * @param IDCard
-     * @return
      */
     public static Integer getAge(String IDCard){
-        Integer age = 0;
+        int age = 0;
         Date date = new Date();
         if (StringUtils.isNotBlank(IDCard)){
             //15位身份证号
@@ -205,10 +226,8 @@ public class IDCardUtil {
 
     /**
      * 获取出生日期  yyyy年MM月dd日
-     * @param IDCard
-     * @return
      */
-    public static String getBirthday(String IDCard){
+    public static Date getBirthday(String IDCard) throws ParseException {
         String birthday="";
         String year="";
         String month="";
@@ -233,22 +252,23 @@ public class IDCardUtil {
             }
             birthday=year+"-"+month+"-"+day;
         }
-        return birthday;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date = dateFormat.parse(birthday);
+
+
+        return date;
     }
 
-    private static String getIdcardCalendar(String certNo) {
+    private static String getSdcardCalendar(String certNo) throws ParseException {
         // 获取出生年月日
         String birthday = certNo.substring(6, 12);
         SimpleDateFormat ft = new SimpleDateFormat("yyMMdd");
         Date birthdate = null;
-        try {
-            birthdate = ft.parse(birthday);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
-        Calendar cday = Calendar.getInstance();
-        cday.setTime(birthdate);
-        String year = String.valueOf(cday.get(Calendar.YEAR));
-        return year;
+        birthdate = ft.parse(birthday);
+        Calendar day = Calendar.getInstance();
+        assert birthdate != null;
+        day.setTime(birthdate);
+        return String.valueOf(day.get(Calendar.YEAR));
     }
 }

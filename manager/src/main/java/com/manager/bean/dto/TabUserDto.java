@@ -27,14 +27,6 @@ public class TabUserDto {
      * 手机号
      */
     private Integer telephone;
-//    /**
-//     * 年龄
-//     */
-//    private Integer age;
-//    /**
-//     * 性别
-//     */
-//    private Integer sex;
     /**
      * 地址
      */
@@ -47,10 +39,6 @@ public class TabUserDto {
      * 邮箱
      */
     private String email;
-//    /**
-//     * 出生日期
-//     */
-//    private Date birthDate;
     /**
      * 头像
      */

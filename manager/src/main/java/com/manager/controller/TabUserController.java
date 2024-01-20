@@ -1,17 +1,14 @@
 package com.manager.controller;
 
 import com.common.util.Json;
-import com.manager.bean.dto.TabUserDto;
+import com.manager.bean.vo.TabUserBatchVo;
+import com.manager.bean.vo.TabUserVo;
+import com.manager.service.TabUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Resource;
 
 /**
  * @version 1.0
@@ -25,43 +22,39 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequestMapping("user")
 public class TabUserController {
 
+    @Resource
+    private TabUserService userService;
+
     @ApiOperation("注册用户接口")
     @PostMapping("/register")
-    public Json register(@RequestBody TabUserDto tabUserDto){
-
-        return Json.success();
+    public Json register(@RequestBody TabUserVo vo){
+        return userService.register(vo);
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        Map<String, String> concurrentHashMap = new ConcurrentHashMap<>(500);
-        Map<String, String> hashMap = new HashMap<>(500);
-
-        // 创建两个线程并启动它们
-        Thread thread1 = new Thread(() -> {
-            for (int index1 = 0; index1 < 1000; index1++) {
-                concurrentHashMap.put(Integer.toString(index1), Integer.toBinaryString(index1));
-
-                hashMap.put(Integer.toString(index1), Integer.toBinaryString(index1));
-            }
-        });
-
-        Thread thread2 = new Thread(() -> {
-            for (int index2 = 1000; index2 < 2000; index2++) {
-                concurrentHashMap.put(Integer.toString(index2), Integer.toBinaryString(index2));
-
-                hashMap.put(Integer.toString(index2), Integer.toBinaryString(index2));
-            }
-        });
-
-        thread1.start();
-        thread2.start();
-
-        // 等待两个线程结束
-        thread1.join();
-        thread2.join();
-
-        System.out.println("ConcurrentHashMap size: " + concurrentHashMap.size());
-        System.out.println("HashMap size: " + hashMap.size());
+    @ApiOperation("审批用户接口")
+    @PostMapping("approveUser")
+    public Json approveUser(@RequestBody TabUserVo vo){
+        return userService.approveUser(vo);
     }
+
+    @ApiOperation("批量审批用户接口")
+    @PostMapping("approveBatchUser")
+    public Json approveBatchUser(@RequestBody TabUserBatchVo vo){
+        return userService.approveBatchUser(vo);
+    }
+
+    @ApiOperation("查询审核列表")
+    @GetMapping("approveUserList")
+    public Json approveUserList(@RequestParam Integer approve){
+        return userService.approveUserList(approve);
+    }
+
+    @ApiOperation("用户登录接口")
+    @PostMapping("approveUserList")
+    public Json login(@RequestBody TabUserVo vo){
+        return userService.login(vo);
+    }
+
+
 
 }

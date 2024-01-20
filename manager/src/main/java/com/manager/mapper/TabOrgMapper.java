@@ -1,7 +1,7 @@
 package com.manager.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.manager.bean.entity.TabUser;
+import com.manager.bean.entity.TabOrg;
 import org.mapstruct.Mapper;
 
 /**
@@ -9,8 +9,8 @@ import org.mapstruct.Mapper;
  * @projectName: shop
  * @author: lin
  * @description:TODO
- * @date: 2024/1/11  17:08
+ * @date: 2024/1/14  15:08
  */
 @Mapper
-public interface TabUserMapper extends BaseMapper<TabUser> {
+public interface TabOrgMapper extends BaseMapper<TabOrg> {
 }

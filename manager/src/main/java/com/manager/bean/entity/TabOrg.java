@@ -4,6 +4,8 @@ import com.common.bean.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+
 /**
  * @version 1.0
  * @projectName: shop
@@ -13,7 +15,9 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class TabOrgEntity extends BaseEntity {
+public class TabOrg extends BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 组织名称
@@ -26,7 +30,7 @@ public class TabOrgEntity extends BaseEntity {
     /**
      * 组织编码，四位一级
      */
-    private Integer code;
+    private String code;
     /**
      * 序号
      */
