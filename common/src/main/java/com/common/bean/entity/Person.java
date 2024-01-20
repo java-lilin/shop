@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @version 1.0
  * @projectName: shop
  * @author: lin
- * @description:TODO
  * @date: 2024/1/16  15:39
  */
 @XmlRootElement

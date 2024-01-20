@@ -16,7 +16,6 @@ import java.nio.charset.Charset;
  * @version 1.0
  * @projectName: shop
  * @author: lin
- * @description:TODO
  * @date: 2024/1/14  21:08
  */
 public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T> {
