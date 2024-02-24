@@ -2,13 +2,14 @@ package com.common.util;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class HttpUtil {
 
@@ -34,9 +35,9 @@ public class HttpUtil {
             if (connection.getResponseCode() == 200) {
                 is = connection.getInputStream();
                 // 封装输入流is，并指定字符集
-                br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
                 // 存放数据
-                StringBuffer sbf = new StringBuffer();
+                StringBuilder sbf = new StringBuilder();
                 String temp = null;
                 while ((temp = br.readLine()) != null) {
                     sbf.append(temp);
@@ -63,6 +64,7 @@ public class HttpUtil {
                     e.printStackTrace();
                 }
             }
+            assert connection != null;
             connection.disconnect();// 关闭远程连接
         }
         return result;
@@ -121,14 +123,14 @@ public class HttpUtil {
         BufferedReader in = null;
         in = new BufferedReader(
                 new InputStreamReader(connection.getInputStream(), encoding));
-        String result = "";
+        StringBuilder result = new StringBuilder();
         String getLine;
         while ((getLine = in.readLine()) != null) {
-            result += getLine;
+            result.append(getLine);
         }
         in.close();
         System.err.println("result:" + result);
-        return result;
+        return result.toString();
     }
 
 
@@ -163,23 +165,19 @@ public class HttpUtil {
         BufferedReader in = null;
         in = new BufferedReader(
                 new InputStreamReader(connection.getInputStream(), encoding));
-        String result = "";
+        StringBuilder result = new StringBuilder();
         String getLine;
         while ((getLine = in.readLine()) != null) {
-            result += getLine;
+            result.append(getLine);
         }
         in.close();
         System.err.println("result:" + result);
-        return result;
+        return result.toString();
     }
 
 
     /**
      * 从网络Url中下载文件
-     * @param urlStr
-     * @param fileName
-     * @param savePath
-     * @throws IOException
      */
     public static void  downLoadFromUrl(String urlStr,String fileName,String savePath) throws IOException{
         URL url = new URL(urlStr);
@@ -211,11 +209,8 @@ public class HttpUtil {
 
     /**
      * 从输入流中获取字节数组
-     * @param inputStream
-     * @return
-     * @throws IOException
      */
-    public static  byte[] readInputStream(InputStream inputStream) throws IOException {
+    public static byte[] readInputStream(InputStream inputStream) throws IOException {
         byte[] buffer = new byte[1024];
         int len = 0;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -232,6 +227,6 @@ public class HttpUtil {
      * @return request
      */
     public static HttpServletRequest getRequest() {
-        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
     }
 }

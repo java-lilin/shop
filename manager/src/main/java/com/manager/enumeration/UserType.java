@@ -10,7 +10,14 @@ import lombok.Getter;
  */
 @Getter
 public enum UserType {
+    //=============================基础配置=====================
+    APPROVE_WAIT(0,"0"),
 
+    APPROVE_ALREADY(0,"1"),
+
+    APPROVE_REFUSE(0,"2"),
+
+    //=============================异常处理======================
     ERROR_USER_NAME_EXIST(401001, "用户名已存在"),
 
     ERROR_TELEPHONE_EXIST(401002, "手机号已存在"),
@@ -28,6 +35,8 @@ public enum UserType {
     ERROR_USER_NAME_NOT_EXIST(401008,"用户名不存在"),
 
     ERROR_PASSWORD_NOT_MATE(401009,"用户名密码不匹配"),
+
+    ERROR_APPROVE_NOT_NULL(401010,"审核状态不能为空"),
 
     SUCCESS_OPERATE(200, "操作成功");
     UserType(int code, String value) {

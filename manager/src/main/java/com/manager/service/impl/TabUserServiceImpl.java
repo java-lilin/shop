@@ -2,6 +2,7 @@ package com.manager.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.common.config.CustomIdGenerator;
 import com.common.enumeration.CommonType;
 import com.common.enumeration.RedisType;
 import com.common.util.IDCardUtil;
@@ -9,7 +10,6 @@ import com.common.util.Json;
 import com.common.util.JwtUtil;
 import com.common.util.RedisCache;
 import com.common.valid.FormatValidator;
-import com.google.gson.Gson;
 import com.manager.bean.entity.TabUser;
 import com.manager.bean.vo.TabUserBatchVo;
 import com.manager.bean.vo.TabUserVo;
@@ -29,9 +29,9 @@ import redis.clients.jedis.Pipeline;
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -45,6 +45,8 @@ import java.util.stream.Collectors;
 @Service
 public class TabUserServiceImpl extends ServiceImpl<TabUserMapper, TabUser> implements TabUserService {
 
+    @Resource
+    private CustomIdGenerator customIdGenerator;
     @Resource
     private TabUserMapper userMapper;
     @Resource
@@ -70,8 +72,6 @@ public class TabUserServiceImpl extends ServiceImpl<TabUserMapper, TabUser> impl
         TabUser user = new TabUser();
         BeanUtils.copyProperties(vo,user);
 
-        String userId = UUID.randomUUID().toString();
-        user.setId(userId);
         //根据身份证  计算性别、年龄、出生日期
         user.setAge(IDCardUtil.getAge(user.getIdCode()));
         user.setSex(IDCardUtil.getSex(user.getIdCode()));
@@ -82,8 +82,13 @@ public class TabUserServiceImpl extends ServiceImpl<TabUserMapper, TabUser> impl
         }
         //将待审核的数据存到redis
         user.setApprove(0);
-        redisCache.setCacheObject(RedisType.ADD_USER.getName() + userId,user);
-//        this.saveOrUpdate(user);
+        user.setId(customIdGenerator.nextId(TabUser.class));
+        //取出审核用户列表
+        List<TabUser> userList = new ArrayList<>();
+        userList.add(user);
+
+        //添加新用户
+        redisCache.setCacheList(RedisType.ADD_USER.getName(),userList);
 
         return Json.success(operate,UserType.SUCCESS_OPERATE.getValue());
     }
@@ -93,11 +98,22 @@ public class TabUserServiceImpl extends ServiceImpl<TabUserMapper, TabUser> impl
     public Json approveUser(TabUserVo vo) {
         String operate = "approveUser";
 
+        if(vo.getApprove() == null){
+            return Json.fail(operate,UserType.ERROR_APPROVE_NOT_NULL.getValue());
+        }
+
         //更新redis审核状态
-        TabUser user = redisCache.getCacheObject(RedisType.ADD_USER.getName() + vo.getId());
-        user.setApprove(vo.getApprove());
-        user.setReason(vo.getReason());
-        redisCache.setCacheObject(RedisType.ADD_USER.getName() + vo.getId(),user);
+        List<TabUser> userList = redisCache.getCacheList(RedisType.ADD_USER.getName());
+
+        userList.forEach(e->{
+            e.setApprove(vo.getApprove());
+            e.setReason(vo.getReason());
+        });
+
+        TabUser user =  userList.stream().filter(obj-> Objects.equals(obj.getId(), vo.getId())).findFirst().orElse(null);
+        redisCache.deleteObject(RedisType.ADD_USER.getName());
+        assert user != null;
+        redisCache.setCacheList(RedisType.ADD_USER.getName(),userList);
         //将审核通过的用户添加到mysql
         if(vo.getApprove() == 1){
             //对密码进行加密
@@ -122,7 +138,7 @@ public class TabUserServiceImpl extends ServiceImpl<TabUserMapper, TabUser> impl
             pipeline.sync();
         }
 
-        if(!"1".equals(vo.getApprove())){
+        if(!UserType.APPROVE_ALREADY.getValue().equals(vo.getApprove())){
             return Json.success(operate,UserType.SUCCESS_OPERATE.getValue());
         }
 
@@ -143,18 +159,13 @@ public class TabUserServiceImpl extends ServiceImpl<TabUserMapper, TabUser> impl
     public Json approveUserList(Integer approve) {
         String operate = "approveUserList";
 
-        List<TabUser> userList = new ArrayList<>();
+        List<TabUser> userList;
         try (Jedis jedis = new Jedis(host, Integer.parseInt(port))) {
-            // 根据 Key 模糊搜索并获取 Value 对象列表
-            Gson gson = new Gson();
-            for (String key : jedis.keys(RedisType.ADD_USER.getName()+":*")) {
-                String jsonString = jedis.get(key);
-                TabUser user = gson.fromJson(jsonString, TabUser.class);
-                userList.add(user);
-            }
+            jedis.auth("123456");
+            userList = redisCache.getCacheList(RedisType.ADD_USER.getName());
         }
         if (!CollectionUtils.isEmpty(userList)) {
-            userList.stream().filter(x-> Objects.equals(x.getApprove(), approve)).collect(Collectors.toList());
+            userList = userList.stream().filter(x-> Objects.equals(x.getApprove(), approve)).collect(Collectors.toList());
         }
 
         return Json.success(operate,userList);
@@ -171,33 +182,39 @@ public class TabUserServiceImpl extends ServiceImpl<TabUserMapper, TabUser> impl
         TabUser user = userMapper.selectOne(lambda);
 
         if(ObjectUtils.isEmpty(user)){
-            Json.fail(operate,UserType.ERROR_USER_NAME_NOT_EXIST.getValue());
+            return Json.fail(operate,UserType.ERROR_USER_NAME_NOT_EXIST.getValue());
         }
         //判断密码是否正确
-        boolean mate = passwordEncoder.matches(user.getPassword(),passwordEncoder.encode(vo.getPassword()));
+        boolean mate = passwordEncoder.matches(vo.getPassword(),user.getPassword());
 
         if (!mate){
-            Json.fail(operate,UserType.ERROR_PASSWORD_NOT_MATE.getValue());
+            return Json.fail(operate,UserType.ERROR_PASSWORD_NOT_MATE.getValue());
         }
-        //将用户id存到redis
-        redisCache.setCacheObject(RedisType.TOKEN.getName(), user.getId(),1, TimeUnit.DAYS);
 
         //根据用户id和用户名 生成token
         String token = JwtUtil.getToken(user.getId(),user.getUserName());
 
-        return Json.success(operate,token);
+        //将用户id存到redis
+        redisCache.setCacheObject(RedisType.TOKEN.getName() + user.getId(),token,1, TimeUnit.DAYS);
+
+        String refresh_token = JwtUtil.getRefreshToken(user.getId(),user.getUserName());
+
+        HashMap<String,String> map = new HashMap<>();
+        map.put("token",token);
+        map.put("refresh_token",refresh_token);
+        return Json.success(operate,map);
     }
 
     public void validUserInfo(TabUserVo vo){
 
         //校验手机号、身份证、email 格式是否正确
-        if(formatValidator.isPhoneNumberValid(String.valueOf(vo.getTelephone()))){
+        if(!formatValidator.isPhoneNumberValid(String.valueOf(vo.getTelephone()))){
             throw new RuntimeException(UserType.ERROR_TELEPHONE_INCORRECT_FORMAT.getValue());
         }
-        if(formatValidator.isEmailAddressValid(vo.getEmail())){
+        if(!formatValidator.isEmailAddressValid(vo.getEmail())){
             throw new RuntimeException(UserType.ERROR_EMAIL_INCORRECT_FORMAT.getValue());
         }
-        if(formatValidator.isIdCardNumberValid(vo.getIdCode())){
+        if(!formatValidator.isIdCardNumberValid(vo.getIdCode())){
             throw new RuntimeException(UserType.ERROR_ID_CODE_INCORRECT_FORMAT.getValue());
         }
 
@@ -206,22 +223,22 @@ public class TabUserServiceImpl extends ServiceImpl<TabUserMapper, TabUser> impl
         //用户名
         List<String> userNameDBList = userDBList.stream().map(TabUser::getUserName).collect(Collectors.toList());
         //手机号
-        List<Integer> telephoneDBList = userDBList.stream().map(TabUser::getTelephone).collect(Collectors.toList());
+        List<String> telephoneDBList = userDBList.stream().map(TabUser::getTelephone).collect(Collectors.toList());
         //身份证
-        List<String> idCodeDBList = userDBList.stream().map(TabUser::getId).collect(Collectors.toList());
+        List<String> idCodeDBList = userDBList.stream().map(TabUser::getIdCode).collect(Collectors.toList());
         //email
         List<String> emailDBList = userDBList.stream().map(TabUser::getEmail).collect(Collectors.toList());
 
-        if(userNameDBList.contains(vo.getUserName())){
+        if(CollectionUtils.isNotEmpty(userNameDBList) && userNameDBList.contains(vo.getUserName())){
             throw new RuntimeException(UserType.ERROR_USER_NAME_EXIST.getValue());
         }
-        if(telephoneDBList.contains(vo.getTelephone())){
+        if(CollectionUtils.isNotEmpty(telephoneDBList) && telephoneDBList.contains(vo.getTelephone())){
             throw new RuntimeException(UserType.ERROR_TELEPHONE_EXIST.getValue());
         }
-        if(idCodeDBList.contains(vo.getIdCode())){
+        if(CollectionUtils.isNotEmpty(idCodeDBList) && idCodeDBList.contains(vo.getIdCode())){
             throw new RuntimeException(UserType.ERROR_ID_CODE_EXIST.getValue());
         }
-        if(emailDBList.contains(vo.getEmail())){
+        if(CollectionUtils.isNotEmpty(emailDBList) && emailDBList.contains(vo.getEmail())){
             throw new RuntimeException(UserType.ERROR_EMAIL_EXIST.getValue());
         }
     }

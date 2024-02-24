@@ -6,13 +6,15 @@ import com.common.enumeration.RedisType;
 import com.common.enumeration.TokenType;
 import com.common.util.JwtUtil;
 import io.jsonwebtoken.Claims;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @version 1.0
@@ -23,8 +25,11 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class InterceptorHandler implements HandlerInterceptor {
     // 注入redis
-    @Resource
+    @Autowired
     StringRedisTemplate redisTemplate;
+    // 白名单列表
+    @Value("${auth.whiteList}")
+    private List<String> whiteList;
 
     // 处理请求之前执行
     @Override
@@ -33,8 +38,14 @@ public class InterceptorHandler implements HandlerInterceptor {
         //取出请求头中Authorization的信息，就是token内容，接下来就是各种判断
         JSONObject jsonObject = new JSONObject();
 
-        String requestToken = request.getHeader("token");
-        if (StringUtils.isEmpty(requestToken)) {
+        String path = request.getRequestURI().substring(request.getContextPath().length()); // 获取请求路径
+        if (whiteList.contains(path)) { // 如果请求路径在不拦截的路径列表中，则放行请求
+            return true;
+        }
+
+        String token = request.getHeader("token");
+        String refreshToken = request.getHeader("refresh_token");
+        if (StringUtils.isEmpty(token) && StringUtils.isEmpty(refreshToken)) {
             // requestToken为空
             response.setStatus(TokenType.ERROR_TOKEN_IS_NULL.getCode());
             jsonObject.put("code", TokenType.ERROR_TOKEN_IS_NULL.getCode());
@@ -44,16 +55,31 @@ public class InterceptorHandler implements HandlerInterceptor {
         }
 
         Claims claims = JwtUtil.checkToken(request.getHeader("token"));
+        //原token有问题
         if (claims == null) {
-            // 解析token中的用户信息claims为null
-            response.setStatus(TokenType.ERROR_TOKEN_CLAIMS_IS_NULL.getCode());
-            jsonObject.put("code", TokenType.ERROR_TOKEN_CLAIMS_IS_NULL.getCode());
-            jsonObject.put("msg", TokenType.ERROR_TOKEN_CLAIMS_IS_NULL.getMsg());
-            response.getWriter().println(jsonObject);
-            return false;
+            Claims refreshClaims = JwtUtil.checkToken(request.getHeader("refresh_token"));
+            if(refreshClaims == null){
+                // 解析token中的用户信息claims为null
+                response.setStatus(TokenType.ERROR_TOKEN_CLAIMS_IS_NULL.getCode());
+                jsonObject.put("code", TokenType.ERROR_TOKEN_CLAIMS_IS_NULL.getCode());
+                jsonObject.put("msg", TokenType.ERROR_TOKEN_CLAIMS_IS_NULL.getMsg());
+                response.getWriter().println(jsonObject);
+                return false;
+            }else {
+                // 解析token中的用户信息claims为null
+                Long userId = Long.valueOf(refreshClaims.get("user_id").toString());
+                String userName = refreshClaims.get("user_name").toString();
+                String jwtToken = JwtUtil.getToken(userId,userName);
+                response.setStatus(TokenType.ERROR_TOKEN_CLAIMS_IS_NULL.getCode());
+                jsonObject.put("code", TokenType.ERROR_TOKEN_CLAIMS_IS_NULL.getCode());
+                jsonObject.put("msg", TokenType.ERROR_TOKEN_CLAIMS_IS_NULL.getMsg());
+                jsonObject.put("data", jwtToken);
+                response.getWriter().println(jsonObject);
+                return true;
+            }
+
         }
 
-        String token = redisTemplate.opsForValue().get(RedisType.TOKEN.getName() + claims.get("user_id"));
         if (!Boolean.TRUE.equals(redisTemplate.hasKey(RedisType.TOKEN.getName() + claims.get("user_id")))) {
             // token不存在于redis中，已过期
             response.setStatus(TokenType.ERROR_TOKEN_EXPIRE.getCode());
@@ -62,7 +88,10 @@ public class InterceptorHandler implements HandlerInterceptor {
             response.getWriter().println(jsonObject);
             return false;
         }
-        if (!requestToken.equals(token)) {
+
+        String tokenRedis = redisTemplate.opsForValue().get(RedisType.TOKEN.getName() + claims.get("user_id"));
+
+        if (!("\""+token+"\"").equals(tokenRedis)) {
             // token错误，判为并发登录，挤下线
             // 对应的修改响应头的状态，用于前端判断做出相应的策略
             response.setStatus(TokenType.ERROR_TOKEN_CONCURRENT.getCode());

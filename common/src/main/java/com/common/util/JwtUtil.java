@@ -16,6 +16,8 @@ public class JwtUtil {
 
     //token时效12小时
     public static final long EXPIRE = 1000*60*60*24;
+    //refreshToken
+    public static final long REFRESH_EXPIRE = 30*24*60*60*1000L;
     //签名哈希的密钥，对于不同的加密算法来说含义不同
     public static final String APP_SECRET = "hss200923usersToken";
 
@@ -25,13 +27,27 @@ public class JwtUtil {
      * @param username 用户名称
      * @return JWT规则生成的token
      */
-    public static String getToken(String userId,String username){
+    public static String getToken(Long userId,String username){
         return Jwts.builder()
                 .setHeaderParam("typ","JWT")
                 .setHeaderParam("alg","HS256")
                 .setSubject("users")
                 .setIssuedAt(new Date())//token 保留时间
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))//token失效时间
+                .claim("user_id",userId)
+                .claim("username",username)
+                //HS256算法实际上就是MD5加盐值，此时APP_SECRET就代表盐值
+                .signWith(SignatureAlgorithm.HS256,APP_SECRET)
+                .compact();
+    }
+
+    public static String getRefreshToken(Long userId,String username){
+        return Jwts.builder()
+                .setHeaderParam("typ","JWT")
+                .setHeaderParam("alg","HS256")
+                .setSubject("users")
+                .setIssuedAt(new Date())//token 保留时间
+                .setExpiration(new Date(System.currentTimeMillis() + REFRESH_EXPIRE))//token失效时间
                 .claim("user_id",userId)
                 .claim("username",username)
                 //HS256算法实际上就是MD5加盐值，此时APP_SECRET就代表盐值

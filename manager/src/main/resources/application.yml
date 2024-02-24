@@ -44,7 +44,7 @@ spring:
         max-concurrency: 10
   redis:
     #数据库索引
-    database: 14
+    database: 1
     host: 127.0.0.1
     port: 6379
     password: 123456
@@ -65,3 +65,12 @@ ScheduledCron:
 holiday_group_mq:
   #交换机名称
   holiday_exchange_name: holiday_exchange
+auth:
+  whiteList:
+    /user/login,
+    /user/register,
+    /swagger-ui/index.html,
+    /swagger-resources/**,
+    /swagger-ui/swagger-initializer.js,
+    /v3/api-docs,
+    /v3/api-docs/swagger-config

@@ -1,5 +1,7 @@
 package com.common.bean.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.util.Date;
@@ -9,7 +11,8 @@ public class BaseEntity {
     /**
      * 主键
      */
-    private String Id;
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    private Long Id;
     /**
      * 创建人
      */

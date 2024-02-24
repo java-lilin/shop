@@ -16,7 +16,7 @@ public class TabUserVo {
     /**
      * 用户id
      */
-    private String id;
+    private Long id;
     /**
      * 姓名
      */
@@ -32,7 +32,7 @@ public class TabUserVo {
     /**
      * 手机号
      */
-    private Integer telephone;
+    private String telephone;
     /**
      * 年龄
      */

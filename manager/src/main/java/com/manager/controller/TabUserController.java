@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @description:TODO
  * @date: 2024/1/11  17:08
  */
-@Api("注册用户信息")
+@Api("用户信息")
 @RestController
 @RequestMapping("user")
 public class TabUserController {
@@ -26,7 +26,7 @@ public class TabUserController {
     private TabUserService userService;
 
     @ApiOperation("注册用户接口")
-    @PostMapping("/register")
+    @PostMapping("register")
     public Json register(@RequestBody TabUserVo vo){
         return userService.register(vo);
     }
@@ -50,7 +50,7 @@ public class TabUserController {
     }
 
     @ApiOperation("用户登录接口")
-    @PostMapping("approveUserList")
+    @PostMapping("login")
     public Json login(@RequestBody TabUserVo vo){
         return userService.login(vo);
     }

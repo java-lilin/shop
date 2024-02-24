@@ -21,7 +21,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class SwaggerConfig {
 
-    private static Logger log = LoggerFactory.getLogger(SwaggerConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(SwaggerConfig.class);
 
 
     @Bean

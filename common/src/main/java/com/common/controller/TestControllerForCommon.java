@@ -1,6 +1,7 @@
 package com.common.controller;
 
 import com.common.sokect.WebSocketServer;
+import io.github.kylinhunter.commons.uid.UidGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,5 +31,13 @@ public class TestControllerForCommon {
             log.debug("异常信息:"+e);
         }
         return "failed" ;
+    }
+
+    public static void main(String[] args) {
+        UidGenerator worker = new UidGenerator(3, 4, 1);
+        for (int i = 0; i < 10; i++) {
+            long nextId = worker.nextId();
+            System.out.println(nextId + "=>" + worker.parse(nextId));
+        }
     }
 }

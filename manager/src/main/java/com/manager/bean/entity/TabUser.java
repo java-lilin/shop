@@ -34,7 +34,7 @@ public class TabUser extends BaseEntity implements Serializable {
     /**
      * 手机号
      */
-    private Integer telephone;
+    private String telephone;
     /**
      * 年龄
      */

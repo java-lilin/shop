@@ -1,8 +1,8 @@
-db: education
+db: shop
 server:
   port: 8089
   servlet:
-    context-path: /education
+    context-path: /common
     session:
       cookie:
         name: ROBOT_MANAGE_SID
@@ -26,9 +26,9 @@ spring:
     include: druid,mybatisplus
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://117.78.10.247:42843/${db}?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&useSSL=false&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/${db}?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&useSSL=false&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
-    password: hzxy2022@!QAZXSW@
+    password: 123456
   rabbitmq:
     host: 117.78.10.200
     port: 42803
@@ -42,18 +42,3 @@ spring:
         acknowledge-mode: manual
         concurrency: 5
         max-concurrency: 10
-  redis:
-    #数据库索引
-    database: 14
-    host: 127.0.0.1
-    port: 6379
-    password: 123456
-    #连接超时时间
-    timeout: 5000
-logging:
-  config: classpath:logback.xml
-  level:
-    com.hzxy.ciskyoneaxpe.mapper: debug
-    com.hzxy.common.mapper: debug
-  pattern:
-    dateformat: yyyy-MM-dd HH:mm:ss
